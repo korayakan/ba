@@ -1,2 +1,2 @@
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://github.com/korayakan/ba/blob/master/ba.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/korayakan/ba/blob/master/ba.ipynb)
 # ba
