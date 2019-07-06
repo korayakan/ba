@@ -1,3 +1,5 @@
+import sys
+
 def predict(line, n_predictions=3):
     print(line)
     #output = evaluate(Variable(lineToTensor(line)))
