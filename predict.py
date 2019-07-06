@@ -1,7 +1,8 @@
+from data import *
+from model import *
 import sys
 
-def predict(line, n_predictions=3):
-    print(line)
+def old_predict(filename, n_predictions=3):
     #output = evaluate(Variable(lineToTensor(line)))
 
     # Get top N categories
@@ -15,6 +16,26 @@ def predict(line, n_predictions=3):
     #    predictions.append([value, all_categories[category_index]])
 
     #return predictions
+    print('')
+
+
+def predict(filename):
+    print('File:')
+    print(filename, '\n')
+
+    tags, coordinate_inputs, coordinate_texts, coordinate_tags = prepare_data(filename)
+
+    print('Expected tags:')
+    print(tags, '\n')
+
+    print(coordinate_inputs)
+    print(coordinate_tags, '\n')
+
+    evaluate(coordinate_inputs)
+
+    print('Predicted tags:')
+    print('TODO', '\n')
+
 
 if __name__ == '__main__':
     predict(sys.argv[1])
