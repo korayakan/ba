@@ -12,6 +12,8 @@ def predict(filename):
 
     # print('Input coordinates:')
     # print(coordinate_inputs)
+    print(coordinate_inputs)
+    print(coordinate_texts)
     print('Expected coordinate tags:')
     print(coordinate_tags)
 

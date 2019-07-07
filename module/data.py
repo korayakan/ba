@@ -13,6 +13,10 @@ from fuzzywuzzy import process
 # for encoding strings
 from zlib import crc32
 
+import logging
+
+
+logging.getLogger().setLevel(logging.ERROR)
 COORDINATE_PATH = 'ba_dataset/SROIE2019/0325updated.task1train(626p)'
 TAG_PATH = 'ba_dataset/SROIE2019/0325updated.task2train(626p)'
 IMG_PATH = COORDINATE_PATH
@@ -65,10 +69,14 @@ def prepare_training_data():
     filenames.sort()
     print('found {} files with coordinate and tag data'.format(len(filenames)))
 
+    training_size = round(len(filenames) * 0.8)
+    print('using {} file for training'.format(training_size))
+
     training_data = []
-    for filename in filenames:
-        tags, coordinate_inputs, coordinate_texts, coordinate_tags = prepare_data(filename)
+    for i in range(training_size):
+        tags, coordinate_inputs, coordinate_texts, coordinate_tags = prepare_data(filenames[i])
         training_data.append((coordinate_inputs, coordinate_tags))
+
     return training_data
 
 
@@ -123,12 +131,13 @@ def read_image_file(filename, path='ba_dataset/SROIE2019/0325updated.task1train(
 
 
 def match_coordinate_tags(coordinate_texts, tags):
+
     tags_reverted = {v: k for k, v in tags.items()}
     tag_values = list(tags.values())
     coordinate_tags = []
     for text in coordinate_texts:
-        text = text.replace('*', '_').replace('%', '_').replace(':', '_').replace('=', '_').replace('-', '_')\
-            .replace('(', '_').replace('/', '_').replace('@', '_').replace('^', '_')
+        # text = text.replace('*', '_').replace('%', '_').replace(':', '_').replace('=', '_').
+        # replace('-', '_').replace('(', '_').replace('@', '_').replace('^', '_').replace('/', '_')
         tag_guess = process.extractOne(text, tag_values, scorer=fuzz.partial_ratio, score_cutoff=90)
         tag = ''
         if tag_guess is not None:
