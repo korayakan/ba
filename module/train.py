@@ -10,9 +10,14 @@ PLOT_EVERY = 1000
 
 
 def train(epochs, print_every=1, learning_rate=0.1):
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    print('Using {} for training'.format(device))
+
     model = net.LSTM()
     loss_function = nn.NLLLoss()
     optimizer = opt.SGD(model.parameters(), lr=learning_rate)
+    model.to(device)
+
     data_set = data.prepare_training_data()
     split_data = {0: [], 1: [], 2: [], 3: []}
     for i in range(len(data_set)):
@@ -48,12 +53,15 @@ def train(epochs, print_every=1, learning_rate=0.1):
 
             # Step 2. Get inputs ready for the network
             input_seq = torch.tensor(coordinate_inputs)
+            input_seq = input_seq.unsqueeze(1)
+            input_seq = input_seq.to(device)
             targets = torch.tensor(coordinate_tags)
+            targets = targets.to(device)
             # print(input_seq)
             # print(targets)
 
             # Step 3. Run forward pass
-            tag_scores = model(input_seq.unsqueeze(1))
+            tag_scores = model(input_seq)
 
             # Step 4. Compute the loss, gradients, and update the parameters
             loss = loss_function(tag_scores, targets)
@@ -69,8 +77,12 @@ def train(epochs, print_every=1, learning_rate=0.1):
             with torch.no_grad():
                 for coordinate_inputs_val, coordinate_tags_val in validation_data:
                     input_seq_val = torch.tensor(coordinate_inputs_val)
+                    input_seq_val = input_seq_val.unsqueeze(1)
+                    input_seq_val = input_seq_val.to(device)
                     targets_val = torch.tensor(coordinate_tags_val)
-                    tag_scores_val = model.forward(input_seq_val.unsqueeze(1))
+                    targets_val = targets_val.to(device)
+
+                    tag_scores_val = model.forward(input_seq_val)
                     loss_val = loss_function(tag_scores_val, targets_val)
                     test_loss += loss_val.item()
 
