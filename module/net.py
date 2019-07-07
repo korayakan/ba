@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.nn.functional as fn
 
 
-SERIALIZED_MODEL_NAME = 'saved_model/ba_model.pt'
+SERIALIZED_MODEL_NAME = 'ba_model.pt'
 
 INPUT_SIZE = 9
 HIDDEN_SIZE = 6

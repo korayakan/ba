@@ -5,8 +5,6 @@ import torch.nn as nn
 import torch.optim as opt
 
 
-SERIALIZED_MODEL_NAME = 'saved_model/ba_model.pt'
-
 N_EPOCH = 1
 PRINT_EVERY = 5000
 PLOT_EVERY = 1000
@@ -41,4 +39,4 @@ def train():
             loss.backward()
             optimizer.step()
 
-    torch.save(model.state_dict(), SERIALIZED_MODEL_NAME)
+    torch.save(model.state_dict(), net.SERIALIZED_MODEL_NAME)
