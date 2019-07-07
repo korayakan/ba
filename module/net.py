@@ -47,5 +47,8 @@ def evaluate(coordinate_inputs):
         model = load_model()
         input_seq = torch.tensor(coordinate_inputs)
         tag_scores = model(input_seq.unsqueeze(1))
-        print(torch.exp(tag_scores))
-        return tag_scores
+        probabilities, tags = tag_scores.topk(1)
+        predictions = []
+        for i in range(len(probabilities)):
+            predictions.append((torch.exp(probabilities[i]).item(), tags[i].item()))
+        return predictions

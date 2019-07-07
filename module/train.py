@@ -5,18 +5,15 @@ import torch.nn as nn
 import torch.optim as opt
 
 
-N_EPOCH = 1
 PRINT_EVERY = 5000
 PLOT_EVERY = 1000
-LEARNING_RATE = 0.1
-# LEARNING_RATE = 0.005
 
 
-def train():
+def train(epochs, learning_rate=0.1):
     model = net.LSTM()
     loss_function = nn.NLLLoss()
-    optimizer = opt.SGD(model.parameters(), lr=LEARNING_RATE)
-    for epoch in range(N_EPOCH):
+    optimizer = opt.SGD(model.parameters(), lr=learning_rate)
+    for epoch in range(epochs):
         for coordinate_inputs, coordinate_tags in data.prepare_training_data():
             # print(coordinate_inputs)
             # print(coordinate_tags)

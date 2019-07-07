@@ -21,10 +21,6 @@ TAG_TO_IDX = {'': 0, 'company': 1, 'date': 2, 'address': 3, 'total': 4}
 IDX_TO_TAG = {v: k for k, v in TAG_TO_IDX.items()}
 
 
-# for plotting
-# import matplotlib.pyplot as plt
-
-
 def get_filenames(path, suffix):
     path = path + '/' if not path.endswith('/') else path
     files = glob.glob(path + '*.' + suffix)
@@ -124,11 +120,6 @@ def read_image_file(filename, path='ba_dataset/SROIE2019/0325updated.task1train(
     path = path + '/' if not path.endswith('/') else path
     # return cv2.imread(path + filename + '.jpg', 0)
     return Image.open(path + filename + '.jpg')
-#
-#
-# def show_image(img):
-#     plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-#     plt.show()
 
 
 def match_coordinate_tags(coordinate_texts, tags):
@@ -157,3 +148,22 @@ def decode_tag(tag_idx):
 def normalize_text(input_text, encoding="utf-8"):
     # see https://stackoverflow.com/questions/40351791/how-to-hash-strings-into-a-float-in-01
     return float(crc32(input_text.encode(encoding)) & 0xffffffff) / 2**32
+
+
+def combine_predicted_tags(texts, tags):
+    company = ''
+    date = ''
+    address = ''
+    total = ''
+
+    for i in range(len(tags)):
+        if tags[i] == 1 and not company.endswith(texts[i]):
+            company += ' ' + texts[i]
+        if tags[i] == 2 and not date.endswith(texts[i]):
+            date += ' ' + texts[i]
+        if tags[i] == 3 and not address.endswith(texts[i]):
+            address += ' ' + texts[i]
+        if tags[i] == 4 and not total.endswith(texts[i]):
+            total += ' ' + texts[i]
+
+    return {'company': company.strip(), 'date': date.strip(), 'address': address.strip(), 'total': total.strip()}
