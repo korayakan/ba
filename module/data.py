@@ -13,8 +13,8 @@ from fuzzywuzzy import process
 # for encoding strings
 from zlib import crc32
 
-COORDINATE_PATH = '../ba_dataset/SROIE2019/0325updated.task1train(626p)'
-TAG_PATH = '../ba_dataset/SROIE2019/0325updated.task2train(626p)'
+COORDINATE_PATH = 'ba_dataset/SROIE2019/0325updated.task1train(626p)'
+TAG_PATH = 'ba_dataset/SROIE2019/0325updated.task2train(626p)'
 IMG_PATH = COORDINATE_PATH
 
 TAG_TO_IDX = {'': 0, 'company': 1, 'date': 2, 'address': 3, 'total': 4}
@@ -92,7 +92,7 @@ def read_text_file_lines(path, filename):
     return lines
 
 
-def read_coordinates(filename, path='../ba_dataset/SROIE2019/0325updated.task1train(626p)'):
+def read_coordinates(filename, path='ba_dataset/SROIE2019/0325updated.task1train(626p)'):
     text = read_text_file_lines(path, filename)
     coordinates = []
     for line in text:
@@ -104,7 +104,7 @@ def read_coordinates(filename, path='../ba_dataset/SROIE2019/0325updated.task1tr
     return coordinates
 
 
-def read_normalized_coordinates(filename, width, height, path='../ba_dataset/SROIE2019/0325updated.task1train(626p)'):
+def read_normalized_coordinates(filename, width, height, path='ba_dataset/SROIE2019/0325updated.task1train(626p)'):
     coordinates = read_coordinates(filename, path=path)
     for line in coordinates:
         for x in range(0, 8, 2):
@@ -116,11 +116,11 @@ def read_normalized_coordinates(filename, width, height, path='../ba_dataset/SRO
     return coordinates
 
 
-def read_tags(filename, path='../ba_dataset/SROIE2019/0325updated.task2train(626p)'):
+def read_tags(filename, path='ba_dataset/SROIE2019/0325updated.task2train(626p)'):
     return json.loads(read_text_file(path, filename))
 
 
-def read_image_file(filename, path='../ba_dataset/SROIE2019/0325updated.task1train(626p)'):
+def read_image_file(filename, path='ba_dataset/SROIE2019/0325updated.task1train(626p)'):
     path = path + '/' if not path.endswith('/') else path
     # return cv2.imread(path + filename + '.jpg', 0)
     return Image.open(path + filename + '.jpg')
