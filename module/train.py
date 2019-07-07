@@ -5,11 +5,11 @@ import torch.nn as nn
 import torch.optim as opt
 
 
-def train(epochs, print_every=1, learning_rate=0.1):
+def train(epochs, print_every=1, learning_rate=0.1, hidden_size=6, num_of_layers=1):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print('Using {} for training'.format(device))
 
-    model = net.LSTM()
+    model = net.LSTM(hidden_size=hidden_size, num_of_layers=num_of_layers)
     loss_function = nn.NLLLoss()
     optimizer = opt.SGD(model.parameters(), lr=learning_rate)
     model.to(device)

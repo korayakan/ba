@@ -8,21 +8,20 @@ import torch.nn.functional as fn
 SERIALIZED_MODEL_NAME = 'ba_model.pt'
 
 INPUT_SIZE = 9
-HIDDEN_SIZE = 6
 OUTPUT_SIZE = 5
 
 
 class LSTM(nn.Module):
 
-    def __init__(self):
+    def __init__(self, hidden_size=6, num_of_layers=1):
         super(LSTM, self).__init__()
-        self.hidden_size = HIDDEN_SIZE
+        self.hidden_size = hidden_size
 
         # The LSTM takes coordinates as input, and outputs hidden states
-        self.lstm = nn.LSTM(INPUT_SIZE, HIDDEN_SIZE)
+        self.lstm = nn.LSTM(INPUT_SIZE, hidden_size, num_layers=num_of_layers)
 
         # The linear layer that maps from hidden state space to tag space
-        self.hidden2tag = nn.Linear(HIDDEN_SIZE, OUTPUT_SIZE)
+        self.hidden2tag = nn.Linear(hidden_size, OUTPUT_SIZE)
 
     def forward(self, input_seq):
         hidden_space, _ = self.lstm(input_seq)
