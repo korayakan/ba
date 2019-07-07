@@ -281,5 +281,4 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/osx,linux,python,windows,pycharm
 
 ba_dataset
-practical-pytorch
-saved_model
+saved_model/*.pt
