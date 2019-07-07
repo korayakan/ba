@@ -1,4 +1,4 @@
-from module import data, net
+from . import data, net
 
 
 def old_predict(filename, n_predictions=3):

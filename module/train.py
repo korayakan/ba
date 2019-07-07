@@ -1,4 +1,4 @@
-from module import data, net
+from . import data, net
 
 import torch
 import torch.nn as nn
