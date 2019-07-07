@@ -1,6 +1,5 @@
-from data import *
-from model import *
-import sys
+from module import data, net
+
 
 def old_predict(filename, n_predictions=3):
     #output = evaluate(Variable(lineToTensor(line)))
@@ -23,7 +22,7 @@ def predict(filename):
     print('File:')
     print(filename, '\n')
 
-    tags, coordinate_inputs, coordinate_texts, coordinate_tags = prepare_data(filename)
+    tags, coordinate_inputs, coordinate_texts, coordinate_tags = data.prepare_data(filename)
 
     print('Expected tags:')
     print(tags, '\n')
@@ -31,11 +30,8 @@ def predict(filename):
     print(coordinate_inputs)
     print(coordinate_tags, '\n')
 
-    evaluate(coordinate_inputs)
+    net.evaluate(coordinate_inputs)
 
     print('Predicted tags:')
     print('TODO', '\n')
 
-
-if __name__ == '__main__':
-    predict(sys.argv[1])
