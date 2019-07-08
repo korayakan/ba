@@ -91,5 +91,5 @@ def train(epochs, print_every=1, learning_rate=0.1, hidden_size=6, num_of_layers
             running_loss = 0
             model.train()
 
-    torch.save(model.state_dict(), net.SERIALIZED_MODEL_NAME)
+    torch.save(model, net.SERIALIZED_MODEL_NAME)
     return train_losses, test_losses
