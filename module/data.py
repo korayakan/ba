@@ -57,7 +57,7 @@ def prepare_data(filename):
     return tags, coordinate_inputs, coordinate_texts, coordinate_tags
 
 
-def get_filenames():
+def get_all_filenames():
     image_files = get_image_filenames(IMG_PATH)
     # print('found {} image files'.format(len(image_files)))
 
@@ -84,7 +84,7 @@ def prepare_training_data():
 
     # filenames = list(set(image_files) & set(coordinate_files) & set(tag_files))
     # filenames.sort()
-    filenames = get_filenames()
+    filenames = get_all_filenames()
     print('found {} files with coordinate and tag data'.format(len(filenames)))
 
     training_size = int(len(filenames) * 0.8)
@@ -99,7 +99,7 @@ def prepare_training_data():
 
 
 def get_random_test_file():
-    filenames = get_filenames()
+    filenames = get_all_filenames()
     print('found {} files with coordinate and tag data'.format(len(filenames)))
 
     test_size = int(len(filenames) * 0.2)
