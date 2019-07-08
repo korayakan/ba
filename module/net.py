@@ -41,10 +41,15 @@ def load_model():
 
 
 def evaluate(coordinate_inputs):
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # print('Using {} for prediction'.format(device))
     with torch.no_grad():
         model = load_model()
+        model.to(device)
         input_seq = torch.tensor(coordinate_inputs)
-        tag_scores = model(input_seq.unsqueeze(1))
+        input_seq = input_seq.unsqueeze(1)
+        input_seq = input_seq.to(device)
+        tag_scores = model(input_seq)
         probabilities, tags = tag_scores.topk(1)
         predictions = []
         for i in range(len(probabilities)):
