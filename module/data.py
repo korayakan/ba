@@ -105,7 +105,7 @@ def get_random_test_file():
     test_size = int(len(filenames) * 0.2)
     print('using {} file for training'.format(test_size))
     
-    return filenames[randint(test_size + 1, len(filenames) - 1]
+    return filenames[randint(test_size + 1, len(filenames) - 1)]
 
 
 def read_text_file(path, filename):
