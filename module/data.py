@@ -15,6 +15,8 @@ from zlib import crc32
 
 import logging
 
+from random import randint
+
 
 logging.getLogger().setLevel(logging.ERROR)
 COORDINATE_PATH = 'ba_dataset/SROIE2019/0325updated.task1train(626p)'
@@ -55,7 +57,7 @@ def prepare_data(filename):
     return tags, coordinate_inputs, coordinate_texts, coordinate_tags
 
 
-def prepare_training_data():
+def get_filenames():
     image_files = get_image_filenames(IMG_PATH)
     # print('found {} image files'.format(len(image_files)))
 
@@ -67,9 +69,25 @@ def prepare_training_data():
 
     filenames = list(set(image_files) & set(coordinate_files) & set(tag_files))
     filenames.sort()
+    return filenames
+
+
+def prepare_training_data():
+    # image_files = get_image_filenames(IMG_PATH)
+    # print('found {} image files'.format(len(image_files)))
+
+    # coordinate_files = get_text_filenames(COORDINATE_PATH)
+    # print('found {} files with coordinate data'.format(len(coordinate_files)))
+
+    # tag_files = get_text_filenames(TAG_PATH)
+    # print('found {} files with tag data'.format(len(tag_files)))
+
+    # filenames = list(set(image_files) & set(coordinate_files) & set(tag_files))
+    # filenames.sort()
+    filenames = get_filenames()
     print('found {} files with coordinate and tag data'.format(len(filenames)))
 
-    training_size = round(len(filenames) * 0.8)
+    training_size = int(len(filenames) * 0.8)
     print('using {} file for training'.format(training_size))
 
     training_data = []
@@ -78,6 +96,16 @@ def prepare_training_data():
         training_data.append((coordinate_inputs, coordinate_tags))
 
     return training_data
+
+
+def get_random_test_file():
+    filenames = get_filenames()
+    print('found {} files with coordinate and tag data'.format(len(filenames)))
+
+    test_size = int(len(filenames) * 0.2)
+    print('using {} file for training'.format(test_size))
+    
+    return filenames[randint(test_size + 1, len(filenames) - 1]
 
 
 def read_text_file(path, filename):
