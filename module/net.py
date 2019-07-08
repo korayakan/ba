@@ -32,8 +32,7 @@ class LSTM(nn.Module):
 
 def load_model():
     if os.path.isfile(SERIALIZED_MODEL_NAME):
-        model = LSTM()
-        model.load_state_dict(torch.load(SERIALIZED_MODEL_NAME))
+        model = torch.load(SERIALIZED_MODEL_NAME)
         model.eval()
         return model
     else:
