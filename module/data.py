@@ -97,6 +97,22 @@ def get_random_test_file():
     return filenames[randint(test_size + 1, len(filenames) - 1)]
 
 
+def get_test_files():
+    filenames = get_all_filenames()
+    print('found {} files with coordinate and tag data'.format(len(filenames)))
+    
+    training_size = int(len(filenames) * 0.8)
+    test_size = int(len(filenames) * 0.2)
+    print('using {} files for testing'.format(test_size))
+
+    test_data = []
+    for i in range(training_size, len(filenames) - 1):
+        tags, coordinate_inputs, coordinate_texts, coordinate_tags = prepare_data(filenames[i])
+        test_data.append(filenames[i])
+
+    return test_data
+
+
 def read_text_file(path, filename):
     path = path + '/' if not path.endswith('/') else path
     with open(path + filename + '.txt') as file:
