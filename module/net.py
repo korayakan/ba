@@ -30,9 +30,9 @@ class LSTM(nn.Module):
         return tag_scores
 
 
-def load_model():
-    if os.path.isfile(SERIALIZED_MODEL_NAME):
-        model = torch.load(SERIALIZED_MODEL_NAME)
+def load_model(model_path=SERIALIZED_MODEL_NAME):
+    if os.path.isfile(model_path):
+        model = torch.load(model_path)
         model.eval()
         return model
     else:
