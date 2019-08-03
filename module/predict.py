@@ -31,3 +31,17 @@ def predict(filename, model_path=net.SERIALIZED_MODEL_NAME):
 
     predicted_tags = data.combine_predicted_tags(coordinate_texts, predicted_coordinate_tags)
     print(predicted_tags)
+
+
+def get_expected_tags(filename):
+    tags, coordinate_inputs, coordinate_texts, coordinate_tags = data.prepare_data(filename)
+    return coordinate_tags
+
+
+def get_predicted_tags(filename, model_path=net.SERIALIZED_MODEL_NAME):
+    tags, coordinate_inputs, coordinate_texts, coordinate_tags = data.prepare_data(filename)
+    predictions = net.evaluate(coordinate_inputs, model_path)
+    predicted_coordinate_tags = []
+    for prediction in predictions:
+        predicted_coordinate_tags.append(prediction[1])
+    return predicted_coordinate_tags
