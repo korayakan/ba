@@ -82,8 +82,7 @@ def prepare_training_data():
     training_data = []
     for i in range(training_size):
         tags, coordinate_inputs, coordinate_texts, coordinate_tags = prepare_data(filenames[i])
-        print(coordinate_inputs)
-        coordinate_inputs = coordinate_inputs[:8]
+        coordinate_inputs = [coordinate_inputs[i][:8] for i in range(len(coordinate_inputs))]
         training_data.append((coordinate_inputs, coordinate_tags))
 
     return training_data
