@@ -6,7 +6,7 @@ def predict(filename, model_path=net.SERIALIZED_MODEL_NAME):
     print(filename, '\n')
 
     tags, coordinate_inputs, coordinate_texts, coordinate_tags = data.prepare_data(filename)
-    coordinate_inputs = [coordinate_inputs[i][:8] for i in range(len(coordinate_inputs))]
+    #coordinate_inputs = [coordinate_inputs[i][:8] for i in range(len(coordinate_inputs))]
     
     print('Expected category tags:')
     print(tags, '\n')
@@ -41,7 +41,7 @@ def get_expected_tags(filename):
 
 def get_predicted_tags(filename, model_path=net.SERIALIZED_MODEL_NAME):
     tags, coordinate_inputs, coordinate_texts, coordinate_tags = data.prepare_data(filename)
-    coordinate_inputs = [coordinate_inputs[i][:8] for i in range(len(coordinate_inputs))]
+    #coordinate_inputs = [coordinate_inputs[i][:8] for i in range(len(coordinate_inputs))]
     predictions = net.evaluate(coordinate_inputs, model_path)
     predicted_coordinate_tags = []
     for prediction in predictions:
