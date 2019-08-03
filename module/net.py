@@ -7,7 +7,7 @@ import torch.nn.functional as fn
 
 SERIALIZED_MODEL_NAME = 'ba_model.pt'
 
-INPUT_SIZE = 9
+INPUT_SIZE = 8
 OUTPUT_SIZE = 5
 
 
