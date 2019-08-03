@@ -40,11 +40,11 @@ def load_model(model_path=SERIALIZED_MODEL_NAME):
         sys.exit(0)
 
 
-def evaluate(coordinate_inputs):
+def evaluate(coordinate_inputs, model_path=SERIALIZED_MODEL_NAME):
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     # print('Using {} for prediction'.format(device))
     with torch.no_grad():
-        model = load_model()
+        model = load_model(model_path)
         model.to(device)
         input_seq = torch.tensor(coordinate_inputs)
         input_seq = input_seq.unsqueeze(1)
