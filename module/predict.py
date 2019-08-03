@@ -1,7 +1,7 @@
 from . import data, net
 
 
-def predict(filename):
+def predict(filename, model_path=net.SERIALIZED_MODEL_NAME):
     print('File:')
     print(filename, '\n')
 
@@ -17,7 +17,7 @@ def predict(filename):
     print('Expected coordinate tags:')
     print(coordinate_tags)
 
-    predictions = net.evaluate(coordinate_inputs)
+    predictions = net.evaluate(coordinate_inputs, model_path)
     predicted_coordinate_tags = []
     for prediction in predictions:
         predicted_coordinate_tags.append(prediction[1])
