@@ -66,7 +66,7 @@ def train(epochs, print_every=1, learning_rate=0.1, hidden_size=6, num_of_layers
             optimizer.step()
             running_loss += loss.item()
 
-        if (steps == 1) or (steps % print_every == 0):
+        if steps % print_every == 0:
             test_loss = 0
             accuracy = 0
             model.eval()
